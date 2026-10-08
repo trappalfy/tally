@@ -1,0 +1,9 @@
+<!-- PLACEHOLDER monogram: two parallel slanted lime strokes on black.
+     Replace with the official logo file from the owner (see README.md in this folder). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#050505"/>
+  <g fill="#C8FC00">
+    <polygon points="16,52 24,52 36,12 28,12"/>
+    <polygon points="28,52 36,52 48,12 40,12"/>
+  </g>
+</svg>
