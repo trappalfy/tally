@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { maskToIds, seriesLabel, Phase } from "@tally/shared";
-import { Stamp } from "@/components/ui";
+import { Stamp, Button } from "@/components/ui";
 import { HealthBar } from "@/components/ui/health-bar";
 import { Empty, Loading, NotDeployed, crPercent } from "./kit";
 import { useProviders, useAllSeries, useHealths, useGpuTypes } from "@/lib/tally/hooks";
@@ -28,7 +28,24 @@ export function ProvidersList() {
 
   if (!HUB_READY) return <NotDeployed />;
   if (isLoading) return <Loading />;
-  if (approved.length === 0) return <Empty>No approved providers yet</Empty>;
+  if (approved.length === 0) {
+    const pending = providers.filter((p) => p.applied && !p.approved).length;
+    return (
+      <div className="space-y-6">
+        <Empty>No approved providers yet</Empty>
+        <div className="flex flex-col items-start gap-4 border border-ink-3 p-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="font-serif text-[22px] italic">Idle GPUs earn nothing.</p>
+            <p className="mt-1 text-[14px] text-ink-2">
+              Sell next month&apos;s hours this month. Apply, run the benchmark, lock 130% in USDG, list receipts.
+              {pending > 0 && ` ${pending} application${pending > 1 ? "s" : ""} under review.`}
+            </p>
+          </div>
+          <Button href="/provider">APPLY AS A PROVIDER</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
