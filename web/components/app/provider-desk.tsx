@@ -70,10 +70,57 @@ function statusOf(p?: ProviderInfo): { label: string; tone: "lime" | "muted" | "
 }
 
 export function ProviderDesk() {
+  const { isConnected } = useAccount();
   return (
-    <ConnectGate what="open the provider desk">
-      <Desk />
-    </ConnectGate>
+    <div className="space-y-8">
+      {!isConnected && <ProviderIntro />}
+      <ConnectGate what="apply as a provider">
+        <Desk />
+      </ConnectGate>
+    </div>
+  );
+}
+
+const INTRO_STEPS = [
+  ["APPLY", "Name, site, payout address, GPU types, benchmark result. One transaction."],
+  ["GET APPROVED", "Tally checks the benchmark. 1 NCU is one hour on the reference A100 80GB."],
+  ["LOCK 130% AND LIST", "Set your cards, capacity and encryption key. List receipts against USDG collateral."],
+  ["START WITHIN 30 MIN", "Each redemption has a 30-minute start window. Miss it and the holder is paid value + 15% from your collateral."],
+] as const;
+
+function ProviderIntro() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-12">
+      <div className="lg:col-span-7">
+        <Panel title="HOW IT WORKS FOR PROVIDERS">
+          <ol className="space-y-5">
+            {INTRO_STEPS.map(([t, d], i) => (
+              <li key={t} className="flex gap-4">
+                <Stamp size="md">{String(i + 1).padStart(2, "0")}</Stamp>
+                <div>
+                  <Stamp size="sm" tone="ink">
+                    {t}
+                  </Stamp>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">{d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Panel>
+      </div>
+      <div className="lg:col-span-5">
+        <Panel title="EXAMPLE" tone="lime">
+          <p className="font-serif text-[22px] italic leading-snug">Idle GPUs earn nothing. Sell next month&apos;s hours this month.</p>
+          <div className="mt-4 space-y-0.5">
+            <Row label="8 IDLE A100s × 24 H × 30 DAYS" value="5,760 NCU" tone="lime" />
+            <Row label="AT $1.40" value="$8,064 OF RECEIPTS" />
+            <Row label="COLLATERAL 130%" value="$10,483 USDG" />
+            <Row label="MINT FEE" value="1%" />
+          </div>
+          <p className="mt-4 text-[13px] text-ink-2">You need a wallet on Robinhood Chain, ETH for gas and USDG for collateral.</p>
+        </Panel>
+      </div>
+    </div>
   );
 }
 
