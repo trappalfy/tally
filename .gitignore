@@ -11,3 +11,6 @@ contracts/broadcast/*/31337
 .DS_Store
 *.log
 .vercel
+.agents/
+.claude/
+skills-lock.json
