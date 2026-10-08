@@ -70,9 +70,9 @@ export const GPU_TYPES = [
 ] as const;
 
 export const NAV_LINKS = [
-  { href: "/market", label: "Market" },
+  { href: "/provider", label: "For providers" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/redeem", label: "Redeem" },
-  { href: "/provider", label: "For providers" },
+  { href: "/market", label: "Market" },
   { href: "/docs", label: "Docs" },
 ] as const;
